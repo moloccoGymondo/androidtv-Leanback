@@ -83,9 +83,8 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
     private Map<Integer, CursorObjectAdapter> mVideoCursorAdapters;
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         // Create a list to contain all the CursorObjectAdapters.
         // Each adapter is used to render a specific row of videos in the MainFragment.
         mVideoCursorAdapters = new HashMap<>();
@@ -286,6 +285,7 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
                 gridRowAdapter.add(getString(R.string.guidedstep_first_title));
                 gridRowAdapter.add(getString(R.string.error_fragment));
                 gridRowAdapter.add(getString(R.string.personal_settings));
+                gridRowAdapter.add(getString(R.string.open_onboarding));
                 ListRow row = new ListRow(gridHeader, gridRowAdapter);
                 mCategoryRowAdapter.add(row);
 
@@ -363,6 +363,11 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
                     Intent intent = new Intent(getActivity(), SettingsActivity.class);
                     Bundle bundle =
                             ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity())
+                                    .toBundle();
+                    startActivity(intent, bundle);
+                } else if(((String) item).contains(getString(R.string.open_onboarding))) {
+                    Intent intent = new Intent(getActivity(), OnboardingActivity.class);
+                    Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity())
                                     .toBundle();
                     startActivity(intent, bundle);
                 } else {
